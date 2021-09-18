@@ -61,6 +61,17 @@ namespace fb {
 
 	template <typename CPO, typename... Args>
 	inline constexpr bool is_nothrow_tag_invocable_v = noexcept(tag_invoke_detail::try_tag_invoke<CPO, Args...>);
+
+	namespace tag_invoke_detail {
+		template <typename T> struct remove_cv { using type = T; };
+		template <typename T> struct remove_cv<T const> { using type = T; };
+		template <typename T> struct remove_cv<T volatile> { using type = T; };
+		template <typename T> using remove_cv_t = typename remove_cv<T>::type;
+		template <typename T> using remove_cvref_t = remove_cv_t<remove_reference_t<T>>;
+	}
+
+	template <auto& cpo>
+	using tag_t = tag_invoke_detail::remove_cvref_t<decltype(cpo)>;
 }
 
 #endif

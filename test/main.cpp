@@ -17,13 +17,13 @@ constexpr struct test_cpo_t {
 } test_cpo = {};
 
 struct foo {
-	friend int tag_invoke(test_cpo_t, foo const&) {
+	friend int tag_invoke(fb::tag_t<test_cpo>, foo const&) {
 		return 2;
 	}
 };
 
 struct bar {
-	friend int tag_invoke(test_cpo_t, bar const&) {
+	friend int tag_invoke(fb::tag_t<test_cpo>, bar const&) {
 		return 3;
 	}
 };
