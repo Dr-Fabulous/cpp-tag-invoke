@@ -1,6 +1,6 @@
+#include <cassert>
 #include <utility>
 #include "fb/tag_invoke.hpp"
-#include "test.hpp"
 
 constexpr struct test_cpo_t {
 	template <typename T>
@@ -28,14 +28,10 @@ struct bar {
 	}
 };
 
-constinit auto tests = std::tuple{
-	[](){
-		test::assert(test_cpo(nullptr) == 1);
-		test::assert(test_cpo(foo{}) == 2);
-		test::assert(test_cpo(bar{}) == 3);
-	}
-};
-
 int main(int argc, char const* args[]) {
-	return test::run(tests);
+	assert(test_cpo(nullptr) == 1);
+	assert(test_cpo(foo{}) == 2);
+	assert(test_cpo(bar{}) == 3);
+
+	return 0;
 }

@@ -19,6 +19,14 @@ project(cpp-tag-invoke
 	LANGUAGES CXX
 	VERSION "${_TAG}")
 
+if("^${CMAKE_SOURCE_DIR}$" STREQUAL "^${PROJECT_SOURCE_DIR}$")
+	set(IS_MAIN_PROJECT ON)
+	message(STATUS "adding cpp-tag-invoke v${_TAG}")
+else()
+	set(IS_MAIN_PROJECT OFF)
+	message(STATUS "adding cpp-tag-invoke v${_TAG} as a sub project")
+endif()
+
 add_subdirectory(src)
 
 include(CTest)
