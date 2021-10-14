@@ -26,9 +26,9 @@ namespace fb {
 		constexpr inline struct tag_invoke_t {
 			template <typename CPO, typename... Args>
 			constexpr auto operator()(CPO&& cpo, Args&&... args) const noexcept(noexcept(tag_invoke(tag_invoke_detail::declval<CPO>(), tag_invoke_detail::declval<Args>()...)))
-											 -> decltype(tag_invoke(tag_invoke_detail::forward<CPO&&>(cpo), tag_invoke_detail::forward<Args&&>(args)...))
+											 -> decltype(tag_invoke(tag_invoke_detail::forward<CPO>(cpo), tag_invoke_detail::forward<Args>(args)...))
 			{
-				return tag_invoke(tag_invoke_detail::forward<CPO&&>(cpo), tag_invoke_detail::forward<Args&&>(args)...);
+				return tag_invoke(tag_invoke_detail::forward<CPO>(cpo), tag_invoke_detail::forward<Args>(args)...);
 			}
 		} tag_invoke = {};
 
