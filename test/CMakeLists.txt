@@ -3,6 +3,7 @@ if(NOT BUILD_TESTING)
 endif()
 
 file(GLOB ALL_SRC "*.cpp")
+set(TESTS "")
 
 foreach(PATH ${ALL_SRC})
 	string(REGEX REPLACE ".*[\\/](.*)\.cpp" "\\1" PATH_NAME "${PATH}")
@@ -15,4 +16,10 @@ foreach(PATH ${ALL_SRC})
 
 	add_test(NAME "${PATH_NAME}"
 		 COMMAND ${CMAKE_CURRENT_BINARY_DIR}/${NAME})
+
+	 list(APPEND TESTS "${NAME}")
 endforeach()
+
+add_custom_target(check
+	COMMAND ${CMAKE_CTEST_COMMAND} --verbose
+	DEPENDS ${TESTS})

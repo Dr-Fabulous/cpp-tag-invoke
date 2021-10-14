@@ -22,4 +22,4 @@ project(cpp-tag-invoke
 add_subdirectory(src)
 
 include(CTest)
-add_subdirectory(test)
+add_subdirectory(test EXCLUDE_FROM_ALL)
